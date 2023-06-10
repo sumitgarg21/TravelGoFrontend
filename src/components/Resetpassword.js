@@ -113,7 +113,7 @@ export const Resetpassword = (props) => {
 
                         <div className='d-flex flex-column justify-content-center h-custom-2 w-75 pt-4'>
 
-                            <i class="bi bi-shield-fill-check display-4 text-center" style={{ color: 'blue' }}></i>
+                            <i className="bi bi-shield-fill-check display-4 text-center" style={{ color: 'blue' }}></i>
                             <p className="text-center fs-5">Your Password is reset.</p>
                             <br></br>
                             <p className='fw-normal' style={{ marginLeft: "60px" }}>Already have an account? <a href="/login" className="link-primary">Login</a></p>

@@ -12,13 +12,14 @@ import {
 export const Login = (props) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     const [crederrors, setCrederrors] = useState({ email: "", password: "" });
+    const [backendmessage, setBackendmessage] = useState("")
     const [show, setShow] = useState(0)
     let navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const errors = {}
-
+        setBackendmessage("")
         if (credentials.email.trim() === '') {
             errors.email = 'This field is required.';
         } else if (!isValidEmail(credentials.email)) {
@@ -44,13 +45,12 @@ export const Login = (props) => {
                 }),
             });
             const json = await response.json();
-            console.log(json);
             if (json.success) {
                 // Save the auth token and redirect
                 localStorage.setItem("token", json.authtoken);
                 navigate("/");
             } else {
-                alert("Invalid credentials");
+                setBackendmessage(json.message);
             }
         }
     };
@@ -93,13 +93,14 @@ export const Login = (props) => {
                                 <input type={`${(show) ? "text" : "password"}`} className="w-75 fs-5 form-control" value={credentials.password} onChange={onChange} id="password" name="password" placeholder="Password" />
                                 <span type='submit' className="input-group-text" onClick={func}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
                                 {crederrors.password && <p style={{ color: 'red' }}>{crederrors.password}</p>}
+                                {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
                             </div>
                             <div className='container mb-4 mx-5'>
                                 <button type="submit" className="btn fs-5 w-100 btn-primary">Login</button>
                             </div>
                         </form>
-                        <p className="fw-normal mb-5" style={{ marginLeft: "60px" }}><a class="link-primary" href="/forgotpassword">Forgot password?</a></p>
-                        <p className='fw-normal' style={{ marginLeft: "60px" }}>Don't have an account? <a href="/signup" class="link-primary">Signup</a></p>
+                        <p className="fw-normal mb-5" style={{ marginLeft: "60px" }}><a className="link-primary" href="/forgotpassword">Forgot password?</a></p>
+                        <p className='fw-normal' style={{ marginLeft: "60px" }}>Don't have an account? <a href="/signup" className="link-primary">Signup</a></p>
 
                     </div>
 

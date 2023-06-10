@@ -40,7 +40,7 @@ export const Footer = () => {
               {/* Grid column */}
               <div className="col-7">
                 {/* Content */}
-                <img src={logoicon2} style={{ height: "70px" }} />
+                <img src={logoicon2} style={{ height: "70px" }} alt="logo" />
                 <p>
                   TravelGo offers 'End to End' travel solutions including air
                   tickets for more than 400 international and domestic airlines,

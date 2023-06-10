@@ -12,14 +12,14 @@ export const Thitems = (props) => {
     });
     return (
         <div>
-            <div className="container shadow p-3 mb-5 bg-body rounded card w-50">
+            <div className="container shadow p-1 mb-3 bg-body rounded card w-75">
                 <div className="card-body">
-                    <div className="text-center card-title fs-4">{Object.mode}({Object.transportname})</div><br></br>
-                    <p className="card-text fs-5">
+                    <div className="card-text fs-5">
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <p>{date}</p>
+                            <p><b>{date},{Object.mode}-{Object.name}</b></p>
+                            <i className="bi bi-trash3"></i>
                         </div>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

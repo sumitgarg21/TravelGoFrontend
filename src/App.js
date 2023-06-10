@@ -10,6 +10,7 @@ import { HotelBlog } from "./components/TravelBlogs/HotelBlog";
 import { Forgotpassword } from "./components/Forgotpassword";
 import { Resetpassword } from "./components/Resetpassword";
 import { Travelhistory } from "./components/Travelhistory";
+import { Flightsearch } from "./components/TravelBlogs/Flightsearch";
 import TicketState from "./components/TicketState";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route exact path="/forgotpassword" element={<Forgotpassword />}></Route>
             <Route path="/resetpassword/:token" element={<Resetpassword />}></Route>
             <Route path="/travelhistory" element={<Travelhistory />}></Route>
+            <Route path="/flight/search" element={<Flightsearch />}></Route>
           </Routes>
         </Router>
         <Footer />

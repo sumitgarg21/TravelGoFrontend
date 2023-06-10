@@ -12,6 +12,7 @@ import {
 export const Signup = (props) => {
   const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "", otp: "" });
   const [crederrors, setCrederrors] = useState({ name: "", email: "", password: "", cpassword: "", otp: "" });
+  const [backendmessage, setBackendmessage] = useState("")
   const [Otp, setOtp] = useState('')
   const [show, setShow] = useState(0)
   let navigate = useNavigate();
@@ -19,7 +20,7 @@ export const Signup = (props) => {
   const onClick = async (e) => {
     e.preventDefault()
     const errors = {};
-
+    setBackendmessage("")
     if (credentials.email.trim() === '') {
       errors.email = 'This field is required.';
     } else if (!isValidEmail(credentials.email)) {
@@ -42,7 +43,7 @@ export const Signup = (props) => {
         alert("OTP sent successfully");
         setOtp(JSON.stringify(json.Otp))
       } else {
-        alert("Error occured while sending OTP");
+        setBackendmessage(json.message)
       }
     }
   };
@@ -50,7 +51,7 @@ export const Signup = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = {};
-
+    setBackendmessage("")
     if (credentials.name.trim() === '') {
       errors.name = 'This field is required.';
     }
@@ -93,11 +94,10 @@ export const Signup = (props) => {
         })
       });
       const json = await response.json();
-      console.log(json);
-      if (json.error === undefined) {
+      if (json.success) {
         navigate("/login");
       } else {
-        alert(json.error);
+        setBackendmessage(json.message);
       }
     }
   };
@@ -154,6 +154,7 @@ export const Signup = (props) => {
                 <input type={`${(show) ? "text" : "password"}`} className="w-75 fs-5 form-control" value={credentials.cpassword} onChange={onChange} id="cpassword" name="cpassword" placeholder="Confirm Password" />
                 <span type='submit' className="input-group-text" onClick={func}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
                 {crederrors.cpassword && <p style={{ color: 'red' }}>{crederrors.cpassword}</p>}
+                {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
               </div>
 
               <div className='container mb-4 mx-5'>

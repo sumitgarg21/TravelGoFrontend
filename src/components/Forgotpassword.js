@@ -11,11 +11,12 @@ import {
 export const Forgotpassword = (props) => {
     const [credentials, setCredentials] = useState({ email: "" });
     const [crederrors, setCrederrors] = useState({ email: "" });
+    const [backendmessage, setBackendmessage] = useState("")
     const [flag, setFlag] = useState(0)
     const handleSubmit = async (e) => {
         e.preventDefault();
         const errors = {}
-
+        setBackendmessage("")
         if (credentials.email.trim() === '') {
             errors.email = 'This field is required.';
         } else if (!isValidEmail(credentials.email)) {
@@ -37,7 +38,7 @@ export const Forgotpassword = (props) => {
             if (json.success) {
                 setFlag(1)
             } else {
-                alert("Invalid credentials");
+                setBackendmessage(json.message)
             }
         }
     };
@@ -70,6 +71,7 @@ export const Forgotpassword = (props) => {
                                     Enter your email that is registered to the account<br></br>
                                     <input type="text" className="w-100 fs-5 form-control" value={credentials.email} onChange={onChange} id="email" name="email" placeholder="Email" />
                                     {crederrors.email && <p style={{ color: 'red' }}>{crederrors.email}</p>}
+                                    {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
                                 </div>
                                 <div className='container mb-4 mx-5'>
                                     <button type="submit" className="btn fs-5 w-100 btn-primary">Continue</button>

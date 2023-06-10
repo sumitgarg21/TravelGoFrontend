@@ -14,7 +14,6 @@ export const TrainBlog = () => {
         let { From, To, Date } = credentials
         const { getTicket } = context
         if (localStorage.getItem('token')) {
-            console.log(localStorage.getItem('token'))
             getTicket(From, To, Date, mode)
             navigate('/checkout')
         }
@@ -22,6 +21,17 @@ export const TrainBlog = () => {
             navigate('/login')
         }
     };
+    const swap = (e) => {
+        const temp = credentials.From
+        setCredentials(prevState => ({
+            ...prevState,
+            From: credentials.To
+        }));
+        setCredentials(prevState => ({
+            ...prevState,
+            To: temp
+        }));
+    }
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
@@ -42,7 +52,7 @@ export const TrainBlog = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="input-group input-group-lg mb-3 w-75" style={{ height: "65px" }}>
                             <input type="text" className="form-control" value={credentials.From} onChange={onChange} id="From" name="From" aria-label="From" placeholder="From" required />
-                            <span className="input-group-text"><i className="fa-solid fa-right-left"></i></span>
+                            <span type="submit" onClick={swap} className="input-group-text"><i className="fa-solid fa-right-left"></i></span>
                             <input type="text" className="form-control" value={credentials.To} onChange={onChange} id="To" name="To" aria-label="To" placeholder="To" required />
                             <input type="date" className="form-control" min={new Date().toISOString().split("T")[0]} value={credentials.Date} onChange={onChange} id="Date" name="Date" aria-label="Date" required />
                             <button type="submit" className="btn btn-warning">Search</button>

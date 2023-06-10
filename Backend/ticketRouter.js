@@ -1,33 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const moment = require('moment');
 const fetchuser = require('./fetchuser');
 const ticketModel = require('./Models/ticketModel');
 const { body, validationResult } = require('express-validator');
 const { trainAPI } = require('./key')
 const { hotelAPI } = require('./key')
+const { flightAPI } = require('./key')
 
 // ROUTE 1: Get All the tickets using: GET "/travelhistory". Login required
 router.get('/travelhistory', fetchuser, async (req, res) => {
     try {
         user = JSON.stringify(req.user)
         user = JSON.parse(user)
-        console.log(user.id)
+        //console.log(user.id)
         let tickets = await ticketModel.find({ User: user.id });
-        res.json(tickets)
+        res.json({ success: true, tickets })
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
 
-router.post('/bookticket', fetchuser, async (req, res) => {
+// Save ticket in travelhistory
+router.post('/saveticket', fetchuser, async (req, res) => {
     try {
         User = JSON.stringify(req.user)
         User = JSON.parse(User)
         let Obj = {
             User: User.id,
-            transportname: req.body.transportname,
+            name: JSON.parse(JSON.stringify(req.body.name)),
             mode: req.body.mode
         }
         ticket = new ticketModel(Obj);
@@ -37,10 +40,7 @@ router.post('/bookticket', fetchuser, async (req, res) => {
             .then(() => res.json({ success: true }))
             .catch((err) => {
                 console.log(err);
-                res.send({
-                    error: err,
-                    message: err.message,
-                });
+                res.send({ success: true, message: err.message });
             });
     }
     catch (error) {
@@ -51,28 +51,32 @@ router.post('/bookticket', fetchuser, async (req, res) => {
 router.post('/transport', fetchuser, async (req, res) => {
     try {
         const { mode, From, To, Date } = req.body;
-        if (mode === "Flight") {
-            const params = {
-                access_key: '675a4c23594bf5ea57d8b0820bb49775',
-                flight_date: '2023-07-14',
-                dep_iata: 'DEL',
-                arr_iata: 'IXS'
-            }
-
-            axios.get(`https://api.aviationstack.com/v1/flights?${params}`)
+        if (mode == "Flight") {
+            axios.get('https://aviation-edge.com/v2/public/flightsFuture', {
+                params: {
+                    key: flightAPI,
+                    type: "arrival",
+                    iataCode: To,
+                    dep_iataCode: From,
+                    date: Date
+                }
+            })
                 .then(response => {
-                    const apiResponse = response.data;
-                    if (Array.isArray(apiResponse['results'])) {
-                        apiResponse['results'].forEach(flight => {
-                            if (!flight['live']['is_ground']) {
-                                console.log(`${flight['airline']['name']} flight ${flight['flight']['iata']}`,
-                                    `from ${flight['departure']['airport']} (${flight['departure']['iata']})`,
-                                    `to ${flight['arrival']['airport']} (${flight['arrival']['iata']}) is in the air.`);
-                            }
-                        });
+                    // Handle the response
+                    let data = response.data
+                    if (data.error) {
+                        data = data.error
+                        res.send({ success: false, data });
                     }
-                }).catch(error => {
-                    console.log(error);
+                    else {
+                        res.send({ success: true, data });
+                    }
+                })
+                .catch(error => {
+                    // Handle any errors
+                    //console.error(error);
+                    data = "Error while fetching flight information."
+                    res.send({ success: false, data });
                 });
         }
         else {
@@ -89,9 +93,10 @@ router.post('/transport', fetchuser, async (req, res) => {
 
             try {
                 const response = await axios.request(options);
-                res.json(response.data)
+                res.json({ success: true, data: response.data })
             } catch (error) {
                 console.error(error);
+                res.json({ success: false, message: error.message });
             }
         }
     } catch (error) {
@@ -99,7 +104,6 @@ router.post('/transport', fetchuser, async (req, res) => {
         res.status(500).send("Internal Transport Server Error");
     }
 })
-
 router.post('/hotel', fetchuser, async (req, res) => {
     try {
         const { Zip } = req.body;
@@ -120,9 +124,10 @@ router.post('/hotel', fetchuser, async (req, res) => {
 
             try {
                 const response = await axios.request(options);
-                res.json(response.data);
+                res.json({ success: true, data: response.data });
             } catch (error) {
                 console.error(error);
+                res.json({ success: false, message: error.message });
             }
         }
     } catch (error) {
@@ -130,31 +135,6 @@ router.post('/hotel', fetchuser, async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 })
-// ROUTE 2: Add a new Note using: POST "/addticket". Login required
-router.post('/addticket', fetchuser, [
-    body('', 'Enter a valid title').isLength({ min: 3 }),
-    body('description', 'Description must be atleast 5 characters').isLength({ min: 5 }),], async (req, res) => {
-        try {
-            const { title, description, tag } = req.body;
-
-            // If there are errors, return Bad request and the errors
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-            const note = new Note({
-                title, description, tag, user: req.user.id
-            })
-            const savedNote = await note.save()
-
-            res.json(savedNote)
-
-        } catch (error) {
-            console.error(error.message);
-            res.status(500).send("Internal Server Error");
-        }
-    })
-
 // ROUTE 4: Delete an existing Note using: DELETE "/deleteticket". Login required
 router.delete('/deleteticket/:id', fetchuser, async (req, res) => {
     try {

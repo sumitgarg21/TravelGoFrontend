@@ -39,7 +39,7 @@ export const HotelBlog = () => {
                         <div className="input-group input-group-lg mb-3 w-50" style={{ height: "65px" }}>
                             <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-map-pin"></i></span>
                             <input type="number" className="form-control" name="Zip" onChange={onChange} placeholder="Enter ZIP Code" aria-label="Username" aria-describedby="basic-addon1" required />
-                            <button type="sbumit" className="btn btn-warning">Find Hotel</button>
+                            <button type="submit" className="btn btn-warning">Find Hotel</button>
                         </div>
                     </form>
 

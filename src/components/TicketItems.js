@@ -4,7 +4,7 @@ export const TicketItems = (props) => {
     const { Object, Data } = props
     const book = async (e) => {
         e.preventDefault()
-        const response = await fetch("http://localhost:5000/ticket/bookticket", {
+        const response = await fetch("http://localhost:5000/ticket/saveticket", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export const TicketItems = (props) => {
             body: JSON.stringify({
 
                 mode: Data,
-                transportname: Object.name
+                name: Object.name
             }),
         });
         const json = await response.json();
@@ -41,7 +41,7 @@ export const TicketItems = (props) => {
                         <p className="card-text">Address - {Object.address} {Object.city}</p>
                         <p className="card-text">{stars}</p>
                         <p className="card-text">Description - {Object.hotel_description}</p>
-                        <a href={Object.url} target="_blank" className="btn btn-outline-warning">Book now</a>
+                        <button onClick={book} target="_blank" rel="noreferrer" className="btn btn-outline-warning">Book now</button>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@ export const TicketItems = (props) => {
             <div>
                 <div className="container shadow p-3 mb-5 bg-body rounded card w-50">
                     <div className="card-body">
-                        <div className="text-center card-title fs-4">{Object.name}({Object.train_num})</div><br></br>
+                        <div className="text-center card-title fs-4"><b>{Object.name}({Object.train_num})</b></div><br></br>
                         <p className="card-text fs-5">
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <div>Departure - {Object.train_from},&nbsp;{Object.data.departTime}</div>

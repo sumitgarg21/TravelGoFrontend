@@ -23,8 +23,8 @@ export const Navbar = () => {
   }
   let location = useLocation();
   return (
-    <div style={{ marginTop: "80px" }}>
-      <nav className="shadow mb-5 bg-body-tertiary navbar navbar-expand-lg fixed-top">
+    <div style={{ marginTop: "60px" }}>
+      <nav className="shadow bg-body-tertiary navbar navbar-expand-lg fixed-top">
         <div className="container">
           <Link className="navbar-brand" to="/">
             <img
