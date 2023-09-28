@@ -11,7 +11,7 @@ const Router = express.Router();
 Router.post("/signup",
   [
     body("email", "Enter a valid email").isEmail(),
-    body("password", "Password must be atleast 5 characters").isLength({
+    body("password", "Password must be atleast 8 characters").isLength({
       min: 8,
     }),
   ],

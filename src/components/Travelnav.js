@@ -28,7 +28,7 @@ export const Travelnav = () => {
           <a
             className={`nav-link ${location.pathname === "/hotels" ? "active" : ""
               } `}
-            href="hotels"
+            href="/hotels"
           >
             <i className="fa-solid fa-hotel"></i>
           </a>
