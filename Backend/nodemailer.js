@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const { pass } = require("./key")
+const { pass } = process.env.REACT_APP_PASS
 module.exports.sendMail = async function sendMail(str, data) {
     let transporter = nodemailer.createTransport({
         service: "gmail",

@@ -25,7 +25,7 @@ export const Forgotpassword = (props) => {
 
         setCrederrors(errors);
         if (Object.keys(errors).length === 0) {
-            const response = await fetch("http://localhost:5000/user/forgotpassword", {
+            const response = await fetch("/user/forgotpassword", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

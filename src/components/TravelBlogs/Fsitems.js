@@ -31,7 +31,7 @@ export const Fsitems = (props) => {
     }
     const book = async (e) => {
         e.preventDefault()
-        const response = await fetch("http://localhost:5000/ticket/saveticket", {
+        const response = await fetch("/ticket/saveticket", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

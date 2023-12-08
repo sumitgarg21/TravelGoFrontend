@@ -5,9 +5,9 @@ const moment = require('moment');
 const fetchuser = require('./fetchuser');
 const ticketModel = require('./Models/ticketModel');
 const { body, validationResult } = require('express-validator');
-const { trainAPI } = require('./key')
-const { hotelAPI } = require('./key')
-const { flightAPI } = require('./key')
+const { trainAPI } = process.env.REACT_APP_TRAINAPI
+const { hotelAPI } = process.env.REACT_APP_HOTELAPI
+const { flightAPI } = process.env.REACT_APP_FLIGHTAPI
 
 // ROUTE 1: Get All the tickets using: GET "/travelhistory". Login required
 router.get('/travelhistory', fetchuser, async (req, res) => {

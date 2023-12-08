@@ -28,7 +28,7 @@ export const Signup = (props) => {
     }
     setCrederrors(errors);
     if (Object.keys(errors).length === 0) {
-      const response = await fetch("http://localhost:5000/user/sendotp", {
+      const response = await fetch("/user/sendotp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export const Signup = (props) => {
 
     setCrederrors(errors);
     if (Object.keys(errors).length === 0) {
-      const response = await fetch("http://localhost:5000/user/signup", {
+      const response = await fetch("/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
