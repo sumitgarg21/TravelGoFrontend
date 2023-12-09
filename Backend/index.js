@@ -13,13 +13,7 @@ mongoose.connect(db_link)
   .catch(function (err) {
     console.log(err)
   })
-app.use(cors(
-  {
-    origin: ["https://travel-go-alpha.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true
-  }
-));
+app.use(cors());
 app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Sumit!");
