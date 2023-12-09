@@ -34,7 +34,7 @@ export const Login = (props) => {
 
         setCrederrors(errors);
         if (Object.keys(errors).length === 0) {
-            const response = await fetch("/user/login", {
+            const response = await fetch("http://localhost:5000/user/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -63,6 +63,10 @@ export const Login = (props) => {
     const func = (e) => {
         (show) ? setShow(0) : setShow(1)
     }
+    /*const samp = (e) => {
+        e.preventDefault()
+        window.open('https://www.facebook.com', '_blank');
+    }*/
 
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });

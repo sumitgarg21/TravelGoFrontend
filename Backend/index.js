@@ -5,7 +5,7 @@ const port = 5000;
 app.listen(port);
 var cors = require("cors");
 const mongoose = require("mongoose")
-const { db_link } = process.env.REACT_APP_DB_LINK
+const { db_link } = require("./key")
 mongoose.connect(db_link)
   .then(function (db) {
     console.log("db conncected")
@@ -13,7 +13,13 @@ mongoose.connect(db_link)
   .catch(function (err) {
     console.log(err)
   })
-app.use(cors());
+app.use(cors(
+  {
+    origin: ["https://travel-go-alpha.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true
+  }
+));
 app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Sumit!");

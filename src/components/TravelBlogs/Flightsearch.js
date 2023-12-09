@@ -5,7 +5,7 @@ import unavailable from '../images/unavailable.jpg'
 export const Flightsearch = () => {
     const context = useContext(TicketContext);
     const { Ticket, Data } = context
-    if (Ticket.length === 0) {
+    if (Ticket === []) {
         return (
             <div style={{ marginTop: "100px" }}>
                 <h1 className='d-flex justify-content-center'>No Data available right now</h1>
