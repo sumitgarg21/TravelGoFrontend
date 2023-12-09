@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
-const { pass } = require("./key")
+require("dotenv").config({ path: __dirname + '/.env' });
+const pass = process.env.PASS
 module.exports.sendMail = async function sendMail(str, data) {
     let transporter = nodemailer.createTransport({
         service: "gmail",

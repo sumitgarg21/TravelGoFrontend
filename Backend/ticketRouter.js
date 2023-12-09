@@ -5,9 +5,10 @@ const moment = require('moment');
 const fetchuser = require('./fetchuser');
 const ticketModel = require('./Models/ticketModel');
 const { body, validationResult } = require('express-validator');
-const { trainAPI } = require('./key')
-const { hotelAPI } = require('./key')
-const { flightAPI } = require('./key')
+require("dotenv").config({ path: __dirname + '/.env' });
+const trainAPI = process.env.TRAINAPI
+const hotelAPI = process.env.HOTELAPI
+const flightAPI = process.env.FLIGHTAPI
 
 // ROUTE 1: Get All the tickets using: GET "/travelhistory". Login required
 router.get('/travelhistory', fetchuser, async (req, res) => {
@@ -33,6 +34,7 @@ router.post('/saveticket', fetchuser, async (req, res) => {
             name: JSON.parse(JSON.stringify(req.body.name)),
             mode: req.body.mode
         }
+        console.log(Obj.name)
         ticket = new ticketModel(Obj);
         //console.log(User.id)
         ticket

@@ -40,7 +40,7 @@ export const Fsitems = (props) => {
             body: JSON.stringify({
 
                 mode: "Flight",
-                name: `${airline},${departure}-${arrival}`
+                name: `${airline[0]}, ${departure}-${arrival}`
             })
         });
         await response.json()

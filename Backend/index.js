@@ -5,7 +5,8 @@ const port = 5000;
 app.listen(port);
 var cors = require("cors");
 const mongoose = require("mongoose")
-const { db_link } = require("./key")
+require("dotenv").config({ path: __dirname + '/.env' });
+const db_link = process.env.DB_LINK;
 mongoose.connect(db_link)
   .then(function (db) {
     console.log("db conncected")

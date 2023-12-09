@@ -3,7 +3,8 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
-const { JWT_KEY } = require("./key")
+require("dotenv").config({ path: __dirname + '/.env' });
+const JWT_KEY = process.env.JWT_KEY
 const userModel = require("./Models/userModel");
 const { sendMail } = require('./nodemailer')
 const fetchuser = require('./fetchuser');
