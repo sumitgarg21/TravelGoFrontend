@@ -16,7 +16,7 @@ Router.post("/signup",
     }),
   ],
   async (req, res) => {
-    // If there are errors, return Bad request and the errors.
+    // If there are errors, return Bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ error: "Details unjustified" });
