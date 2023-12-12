@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { BASE_URL } from '../BackendUrl'
 export const Fsitems = (props) => {
     const { Object } = props
     const airline = useState(Object.airline.name ? Object.airline.name.replace(/\b\w/g, char => char.toUpperCase()) : Object.codeshared.airline.name.replace(/\b\w/g, char => char.toUpperCase()))
@@ -31,7 +32,7 @@ export const Fsitems = (props) => {
     }
     const book = async (e) => {
         e.preventDefault()
-        const response = await fetch("http://localhost:5000/ticket/saveticket", {
+        const response = await fetch(`${BASE_URL}/ticket/saveticket`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

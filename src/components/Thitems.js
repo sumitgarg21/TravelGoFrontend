@@ -1,6 +1,7 @@
 import { useContext, React } from 'react'
 import { useNavigate } from "react-router-dom";
 import TicketContext from "./TicketContext";
+import { BASE_URL } from './BackendUrl';
 export const Thitems = (props) => {
     const context = useContext(TicketContext)
     const { myTicket } = context
@@ -16,7 +17,7 @@ export const Thitems = (props) => {
     });
 
     const handleDelete = async (itemId) => {
-        const response = await fetch(`http://localhost:5000/ticket/deleteticket/${itemId}`, {
+        const response = await fetch(`${BASE_URL}/ticket/deleteticket/${itemId}`, {
             method: "DELETE",
         });
         const json = await response.json();

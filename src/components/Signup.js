@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import image1 from './images/image1.png'
 import logo from './images/logoicon.png'
+import { BASE_URL } from './BackendUrl';
 import { useNavigate } from "react-router-dom";
 import {
   MDBContainer,
@@ -28,7 +29,7 @@ export const Signup = (props) => {
     }
     setCrederrors(errors);
     if (Object.keys(errors).length === 0) {
-      const response = await fetch("http://localhost:5000/user/sendotp", {
+      const response = await fetch(`${BASE_URL}/user/sendotp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +83,7 @@ export const Signup = (props) => {
 
     setCrederrors(errors);
     if (Object.keys(errors).length === 0) {
-      const response = await fetch("http://localhost:5000/user/signup", {
+      const response = await fetch(`${BASE_URL}/user/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

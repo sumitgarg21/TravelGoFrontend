@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import image1 from './images/image1.png'
 import logo from './images/logoicon.png'
+import { BASE_URL } from './BackendUrl';
 import {
     MDBContainer,
     MDBRow,
@@ -33,7 +34,7 @@ export const Resetpassword = (props) => {
 
         setCrederrors(errors);
         if (Object.keys(errors).length === 0) {
-            const response = await fetch("http://localhost:5000/user/resetpassword", {
+            const response = await fetch(`${BASE_URL}/user/resetpassword`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -1,10 +1,10 @@
 import React from 'react'
-
+import { BASE_URL } from './BackendUrl'
 export const TicketItems = (props) => {
     const { Object, Data } = props
     const book = async (e) => {
         e.preventDefault()
-        const response = await fetch("http://localhost:5000/ticket/saveticket", {
+        const response = await fetch(`${BASE_URL}/ticket/saveticket`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

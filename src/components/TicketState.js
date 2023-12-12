@@ -1,7 +1,8 @@
 import TicketContext from "./TicketContext";
 import { useState } from "react";
+import { BASE_URL } from "./BackendUrl";
 const TicketState = (props) => {
-    const host = "http://localhost:5000"
+    const host = BASE_URL
     const [Ticket, setTicket] = useState([])
     const [Data, setData] = useState("")
     // Get all Ticket

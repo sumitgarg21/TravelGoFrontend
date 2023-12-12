@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import image1 from './images/image1.png'
 import logo from './images/logoicon.png'
+import { BASE_URL } from './BackendUrl';
 import { useNavigate } from "react-router-dom";
 import {
     MDBContainer,
@@ -34,7 +35,7 @@ export const Login = (props) => {
 
         setCrederrors(errors);
         if (Object.keys(errors).length === 0) {
-            const response = await fetch("http://localhost:5000/user/login", {
+            const response = await fetch(`${BASE_URL}/user/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
