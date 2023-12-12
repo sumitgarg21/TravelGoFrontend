@@ -5,6 +5,8 @@ import { Thitems } from './Thitems'
 export const Travelhistory = () => {
     const context = useContext(TicketContext)
     const { Ticket } = context
+    const reversedTicket = [...Ticket].reverse();
+    context.Ticket = reversedTicket;
     if (Ticket.length === 0) {
         return (
             <div>
