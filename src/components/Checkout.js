@@ -7,9 +7,7 @@ export const Checkout = (props) => {
     const context = useContext(TicketContext);
     const { Ticket, Data } = context
     const [spin, setSpin] = useState(true);
-    const timeoutId = setTimeout(() => {
-        setSpin(false);
-    }, 3000);
+    setTimeout(() => { setSpin(false); }, 5000);
     if (Ticket.length === 0) {
         if (spin) {
             return (<Spinner />)

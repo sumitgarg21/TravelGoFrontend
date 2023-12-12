@@ -15,7 +15,6 @@ router.get('/travelhistory', fetchuser, async (req, res) => {
     try {
         user = JSON.stringify(req.user)
         user = JSON.parse(user)
-        //console.log(user.id)
         let tickets = await ticketModel.find({ User: user.id });
         res.json({ success: true, tickets })
     } catch (error) {
@@ -49,6 +48,28 @@ router.post('/saveticket', fetchuser, async (req, res) => {
         res.json({ error })
     }
 })
+
+router.delete('/deleteticket/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const ticket = await ticketModel.findById(id);
+        if (!ticket) {
+            return res.status(404).json({ success: false, message: 'Ticket not found' });
+        }
+
+        const deletedTicket = await ticketModel.findByIdAndDelete(id);
+
+        if (deletedTicket) {
+            console.log("ticket deleted")
+            return res.status(200).json({ success: true, message: 'Ticket deleted successfully' });
+        } else {
+            return res.status(500).json({ success: false, message: 'Unable to delete ticket' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
 
 router.post('/transport', fetchuser, async (req, res) => {
     try {

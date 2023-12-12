@@ -1,21 +1,29 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import TicketContext from './TicketContext'
 import error from './images/error.jpg'
 import { Thitems } from './Thitems'
+import { Spinner } from './Spinner'
 export const Travelhistory = () => {
     const context = useContext(TicketContext)
-    const { Ticket } = context
+    const { Ticket } = context;
     const reversedTicket = [...Ticket].reverse();
     context.Ticket = reversedTicket;
+    const [spin, setSpin] = useState(true);
+    setTimeout(() => { setSpin(false); }, 5000);
     if (Ticket.length === 0) {
-        return (
-            <div>
-                <h1 className='d-flex justify-content-center'>Travel History is empty</h1>
-                <div className='d-flex justify-content-center'>
-                    <img src={error} alt='error' style={{ height: "1000px", width: "1000px" }} />
+        if (spin) {
+            return (<Spinner />)
+        }
+        else {
+            return (
+                <div>
+                    <h1 className='d-flex justify-content-center'>Travel History is empty</h1>
+                    <div className='d-flex justify-content-center'>
+                        <img src={error} alt='error' style={{ height: "1000px", width: "1000px" }} />
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
     else {
         return (<div style={{ backgroundColor: "#f8fef8" }}>
@@ -23,7 +31,9 @@ export const Travelhistory = () => {
             <p className='text-center fs-5'>Items which you have visited as shown here</p><br></br>
             {Ticket.slice(0, 20).map((Object) => {
                 return <Thitems key={Object._id} Object={Object} />
+
             })}
+
         </div>)
     }
 
