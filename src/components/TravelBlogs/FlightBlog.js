@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 export const FlightBlog = () => {
     const mode = "Flight";
     var today = new Date();
+    today.setDate(today.getDate() + 7); // Set default date to present + 8 days
     today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+
     const [credentials, setCredentials] = useState({ From: "", To: "", Date: today });
     const navigate = useNavigate();
     const context = useContext(TicketContext);
@@ -60,7 +62,7 @@ export const FlightBlog = () => {
                                         <input type="text" className="form-control" value={credentials.From} onChange={onChange} id="From" name="From" aria-label="From" placeholder="From (Enter IATA Code)" required />
                                         <span type="submit" onClick={swap} className="input-group-text"><i className="fa-solid fa-right-left"></i></span>
                                         <input type="text" className="form-control" value={credentials.To} onChange={onChange} id="To" name="To" aria-label="To" placeholder="To (Enter IATA Code)" required />
-                                        <input type="date" className="form-control" min={new Date().toISOString().split("T")[0]} value={credentials.Date} onChange={onChange} id="Date" name="Date" aria-label="Date" required />
+                                        <input type="date" className="form-control" min={today} value={credentials.Date} onChange={onChange} id="Date" name="Date" aria-label="Date" required />
                                         <button type="submit" className="btn btn-warning">Search</button>
                                     </div>
                                 </div>
