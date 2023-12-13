@@ -5,7 +5,7 @@ import cheap from "./images/cheap.png";
 
 export const Reviews = () => {
     return (
-        <div className="container">
+        <div className="container-fluid">
             <div className="row justify-content-around" style={{ backgroundColor: "#f2f2f2", marginTop: "100px" }}>
                 <div className="col-md-4 mb-4">
                     <div className="card" style={{ backgroundColor: "#f2f2f2", border: "none" }}>
