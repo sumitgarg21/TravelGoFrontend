@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
-import { BASE_URL } from '../BackendUrl'
+import React, { useState } from 'react';
+import { BASE_URL } from '../BackendUrl';
+
 export const Fsitems = (props) => {
-    const { Object } = props
-    const airline = useState(Object.airline.name ? Object.airline.name.replace(/\b\w/g, char => char.toUpperCase()) : Object.codeshared.airline.name.replace(/\b\w/g, char => char.toUpperCase()))
-    const arrival = (Object.arrival.iataCode).toUpperCase()
-    const departure = (Object.departure.iataCode).toUpperCase()
+    const { Object } = props;
+    const airline = useState(Object.airline.name ? Object.airline.name.replace(/\b\w/g, char => char.toUpperCase()) : Object.codeshared.airline.name.replace(/\b\w/g, char => char.toUpperCase()));
+    const arrival = (Object.arrival.iataCode).toUpperCase();
+    const departure = (Object.departure.iataCode).toUpperCase();
+
     function calculateTimeDifference(startTime, endTime) {
         const startHours = parseInt(startTime.split(':')[0], 10);
         const startMinutes = parseInt(startTime.split(':')[1], 10);
@@ -30,8 +32,9 @@ export const Fsitems = (props) => {
 
         return `${timeDiffHours} hours ${remainingMinutes} minutes`;
     }
+
     const book = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const response = await fetch(`${BASE_URL}/ticket/saveticket`, {
             method: "POST",
             headers: {
@@ -39,30 +42,31 @@ export const Fsitems = (props) => {
                 "authtoken": localStorage.getItem('token')
             },
             body: JSON.stringify({
-
                 mode: "Flight",
                 name: `${airline[0]}, ${departure}-${arrival}`
             })
         });
-        await response.json()
-    }
+        await response.json();
+    };
+
     return (
         <div>
-            <div className="container shadow  mb-3 bg-body rounded card w-75">
+            <div className="container shadow mb-3 bg-body rounded card w-75">
                 <div className="card-body">
-                    <div className="text-center card-title fs-4">{airline}</div><br></br>
-                    <p className="card-text fs-5">
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div className="text-center card-title fs-4">{airline}</div>
+                    <br />
+                    <div className="fs-5">
+                        <div className="d-flex justify-content-between align-items-center">
                             <div className="fw-bold">{departure},&nbsp;{Object.departure.scheduledTime}</div>
-                            {/*<p className="card-text"><small className="text-muted">{From}</small></p>*/}
-                            <div className="fs-6">{calculateTimeDifference(Object.departure.scheduledTime, Object.arrival.scheduledTime)}</div>
                             <div className="fw-bold">{arrival},&nbsp;{Object.arrival.scheduledTime}</div>
-                            {/*<p className="card-text"><small className="text-muted">{To}</small></p>*/}
                         </div>
-                    </p>
+                        <div className="text-center fs-6">
+                            {calculateTimeDifference(Object.departure.scheduledTime, Object.arrival.scheduledTime)}
+                        </div>
+                    </div>
                     <button onClick={book} className="btn btn-outline-warning" style={{ width: "150px" }}>VIEW PRICES</button>
                 </div>
             </div>
         </div>
     )
-}
+};
