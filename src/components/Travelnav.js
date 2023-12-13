@@ -1,10 +1,11 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+
 export const Travelnav = () => {
   let location = useLocation();
   return (
     <div>
-      <ul className="nav shadow p-1 mb-1 bg-body-tertiary justify-content-center nav-pills fs-3" style={{ width: "50%", margin: "auto" }}>
+      <ul className="nav shadow p-1 mb-1 bg-body-tertiary justify-content-center nav-pills fs-3" style={{ width: "100%", margin: "auto" }}>
         <li className="nav-item">
           <a
             className={`nav-link ${location.pathname === "/" ? "active" : ""} `}
@@ -34,6 +35,6 @@ export const Travelnav = () => {
           </a>
         </li>
       </ul>
-    </div >
+    </div>
   );
 };
