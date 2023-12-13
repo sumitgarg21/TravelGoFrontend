@@ -35,8 +35,8 @@ function App() {
             <Route path="/travelhistory" element={<Travelhistory />}></Route>
             <Route path="/flight/search" element={<Flightsearch />}></Route>
           </Routes>
+          <Footer />
         </Router>
-        <Footer />
       </TicketState>
     </div>
   );
