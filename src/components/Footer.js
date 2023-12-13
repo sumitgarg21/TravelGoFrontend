@@ -1,13 +1,11 @@
 import React from "react";
 import logoicon2 from "./images/logoicon2.png";
+
 export const Footer = () => {
   return (
     <div>
       {/* Footer */}
-      <footer
-        className="text-center text-lg-start text-white"
-        style={{ backgroundColor: "black" }}
-      >
+      <footer className="text-center text-lg-start text-white" style={{ backgroundColor: "black" }}>
         {/* Section: Social media */}
         <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
           {/* Left */}
@@ -33,43 +31,36 @@ export const Footer = () => {
         {/* Section: Social media */}
 
         {/* Section: Links  */}
-        <section>
-          <div className="container text-md-start mt-5">
-            {/* Grid row */}
-            <div className="row justify-content-around">
-              {/* Grid column */}
-              <div className="col-7">
-                {/* Content */}
-                <img src={logoicon2} style={{ height: "70px" }} alt="logo" />
-                <p>
-                  TravelGo offers 'End to End' travel solutions including air
-                  tickets for more than 400 international and domestic airlines,
-                  hotel bookings for nearly 1 million hotels in India and
-                  abroad, bus tickets with 2000+ bus operators, and railway
-                  tickets in India for all major cities.
-                </p>
-              </div>
-              {/* Grid column */}
-
-              {/* Grid column */}
-              <div className="col-4">
-                {/* Links */}
-                <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
-                <p>
-                  <i className="fas fa-home me-3"></i> Noida
-                </p>
-                <p>
-                  <i className="fas fa-envelope me-3"></i>
-                  support@travelgo.com
-                </p>
-                <p>
-                  <i className="fas fa-phone me-3"></i> 9999988888
-                </p>
-              </div>
-              {/* Grid column */}
+        <section className="container text-md-start mt-5">
+          {/* Grid row */}
+          <div className="row justify-content-around">
+            {/* Grid column */}
+            <div className="col-lg-7 col-md-12 mb-4">
+              {/* Content */}
+              <img src={logoicon2} className="img-fluid" style={{ height: "70px" }} alt="logo" />
+              <p className="mt-3">
+                TravelGo offers 'End to End' travel solutions including air tickets for more than 400 international and domestic airlines, hotel bookings for nearly 1 million hotels in India and abroad, bus tickets with 2000+ bus operators, and railway tickets in India for all major cities.
+              </p>
             </div>
-            {/* Grid row */}
+            {/* Grid column */}
+
+            {/* Grid column */}
+            <div className="col-lg-4 col-md-12 mb-4">
+              {/* Links */}
+              <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
+              <p>
+                <i className="fas fa-home me-3"></i> Noida
+              </p>
+              <p>
+                <i className="fas fa-envelope me-3"></i> support@travelgo.com
+              </p>
+              <p>
+                <i className="fas fa-phone me-3"></i> 9999988888
+              </p>
+            </div>
+            {/* Grid column */}
           </div>
+          {/* Grid row */}
         </section>
         {/* Section: Links  */}
 
