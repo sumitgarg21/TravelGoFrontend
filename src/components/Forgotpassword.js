@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Spinner } from 'react-bootstrap'
 import image1 from './images/image1.png'
 import logo from './images/logoicon.png'
 import { BASE_URL } from './BackendUrl';
@@ -78,7 +79,13 @@ export const Forgotpassword = (props) => {
                                     {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
                                 </div>
                                 <div className='container mb-4 mx-5'>
-                                    <button type="submit" className={`btn fs-5 w-100 ${click ? "btn-success" : "btn-primary"}`} disabled={click === 1}>{click ? "Sending..." : "Continue"}</button>
+                                    <button type="submit" className={`btn fs-5 w-100 ${click ? "btn-success" : "btn-primary"}`} disabled={click === 1}>{click ? (<Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />) : "Continue"}</button>
                                 </div>
                             </form>
                         </div>

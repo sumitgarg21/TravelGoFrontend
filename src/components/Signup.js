@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Spinner } from 'react-bootstrap'
 import image1 from './images/image1.png'
 import logo from './images/logoicon.png'
 import { BASE_URL } from './BackendUrl';
@@ -14,6 +15,7 @@ export const Signup = (props) => {
   const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "", otp: "" });
   const [crederrors, setCrederrors] = useState({ name: "", email: "", password: "", cpassword: "", otp: "" });
   const [backendmessage, setBackendmessage] = useState("")
+  const [click, setClick] = useState(0);
   const [Otp, setOtp] = useState('')
   const [show, setShow] = useState(0)
   let navigate = useNavigate();
@@ -83,6 +85,7 @@ export const Signup = (props) => {
 
     setCrederrors(errors);
     if (Object.keys(errors).length === 0) {
+      setClick(1)
       const response = await fetch(`${BASE_URL}/user/signup`, {
         method: "POST",
         headers: {
@@ -99,6 +102,7 @@ export const Signup = (props) => {
         navigate("/login");
       } else {
         setBackendmessage(json.message);
+        setClick(0)
       }
     }
   };
@@ -159,7 +163,15 @@ export const Signup = (props) => {
               </div>
 
               <div className='container mb-4 mx-5'>
-                <button type="submit" className="btn fs-5 w-100 btn-primary">Signup</button>
+                <button type="submit" className={`btn fs-5 w-100 ${click ? "btn-success" : "btn-primary"}`} disabled={click === 1}>{click ? (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                ) : "Signup"}</button>
               </div>
 
             </form>

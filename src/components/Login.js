@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Spinner } from 'react-bootstrap'
 import image1 from './images/image1.png'
 import logo from './images/logoicon.png'
 import { BASE_URL } from './BackendUrl';
@@ -93,7 +94,13 @@ export const Login = (props) => {
                                 {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
                             </div>
                             <div className='container mb-4 mx-5'>
-                                <button type="submit" className={`btn fs-5 w-100 ${click ? "btn-success" : "btn-primary"}`} disabled={click === 1}>{click ? "Logging in..." : "Login"}</button>
+                                <button type="submit" className={`btn fs-5 w-100 ${click ? "btn-success" : "btn-primary"}`} disabled={click === 1}>{click ? (<Spinner
+                                    as="span"
+                                    animation="border"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />) : "Login"}</button>
                             </div>
                         </form>
                         <p className="fw-normal mb-5" style={{ marginLeft: "60px" }}><a className="link-primary" href="/forgotpassword">Forgot password?</a></p>
