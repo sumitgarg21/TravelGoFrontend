@@ -13,6 +13,7 @@ export const Forgotpassword = (props) => {
     const [credentials, setCredentials] = useState({ email: "" });
     const [crederrors, setCrederrors] = useState({ email: "" });
     const [backendmessage, setBackendmessage] = useState("")
+    const [click, setClick] = useState(0);
     const [flag, setFlag] = useState(0)
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,6 +27,7 @@ export const Forgotpassword = (props) => {
 
         setCrederrors(errors);
         if (Object.keys(errors).length === 0) {
+            setClick(1);
             const response = await fetch(`${BASE_URL}/user/forgotpassword`, {
                 method: "POST",
                 headers: {
@@ -40,6 +42,7 @@ export const Forgotpassword = (props) => {
                 setFlag(1)
             } else {
                 setBackendmessage(json.message)
+                setClick(0);
             }
         }
     };
@@ -75,7 +78,7 @@ export const Forgotpassword = (props) => {
                                     {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
                                 </div>
                                 <div className='container mb-4 mx-5'>
-                                    <button type="submit" className="btn fs-5 w-100 btn-primary">Continue</button>
+                                    <button type="submit" className={`btn fs-5 w-100 ${click ? "btn-success" : "btn-primary"}`} disabled={click === 1}>{click ? "Sending..." : "Continue"}</button>
                                 </div>
                             </form>
                         </div>
