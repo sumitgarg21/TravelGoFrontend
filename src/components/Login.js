@@ -74,7 +74,7 @@ export const Login = (props) => {
 
                 <MDBCol sm='5' style={{ backgroundColor: '#ffffff' }}>
 
-                    <div className='d-flex flex-row ps-5 pt-5 mx-3'>
+                    <div className='d-flex flex-row ps-5 pt-5 mx-3 '>
                         <img src={logo} style={{ width: '200px' }} alt="logo" />
                     </div>
 
