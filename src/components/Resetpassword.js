@@ -13,13 +13,15 @@ import {
 export const Resetpassword = (props) => {
     const [credentials, setCredentials] = useState({ password: "", cpassword: "" });
     const [crederrors, setCrederrors] = useState({ password: "", cpassword: "" });
+    const [click, setClick] = useState(0);
+    const [backendmessage, setBackendmessage] = useState("")
     const [flag, setFlag] = useState(0)
     const [show, setShow] = useState(0)
     const location = useLocation()
     const handleSubmit = async (e) => {
         e.preventDefault();
         const errors = {}
-
+        setBackendmessage("")
         if (credentials.password.trim() === '') {
             errors.password = 'This field is required.';
         } else if (credentials.password.length < 8) {
@@ -34,6 +36,7 @@ export const Resetpassword = (props) => {
 
         setCrederrors(errors);
         if (Object.keys(errors).length === 0) {
+            setClick(1)
             const response = await fetch(`${BASE_URL}/user/resetpassword`, {
                 method: "POST",
                 headers: {
@@ -48,7 +51,8 @@ export const Resetpassword = (props) => {
             if (json.success) {
                 setFlag(1)
             } else {
-                alert(json.message);
+                setBackendmessage(json.message)
+                setClick(0)
             }
         }
     };
@@ -82,9 +86,10 @@ export const Resetpassword = (props) => {
                                     <input type={`${(show) ? "text" : "password"}`} className="w-75 fs-5 form-control" value={credentials.cpassword} onChange={onChange} id="cpassword" name="cpassword" placeholder="Confirm Password" />
                                     <span type='submit' className="input-group-text" onClick={func}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
                                     {crederrors.cpassword && <p style={{ color: 'red' }}>{crederrors.cpassword}</p>}
+                                    {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
                                 </div>
                                 <div className='container mb-4 mx-5'>
-                                    <button type="submit" className="btn fs-5 w-100 btn-primary">Reset</button>
+                                    <button type="submit" className={`btn fs-5 w-100 ${click ? "btn-success" : "btn-primary"}`} disabled={click === 1}>{click ? "Checking..." : "Continue"}</button>
                                 </div>
                             </form>
                         </div>
