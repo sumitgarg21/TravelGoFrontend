@@ -13,6 +13,7 @@ import {
 export const Login = (props) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     const [crederrors, setCrederrors] = useState({ email: "", password: "" });
+    const [click, setClick] = useState(0);
     const [backendmessage, setBackendmessage] = useState("")
     const [show, setShow] = useState(0)
     let navigate = useNavigate();
@@ -35,6 +36,7 @@ export const Login = (props) => {
 
         setCrederrors(errors);
         if (Object.keys(errors).length === 0) {
+            setClick(1)
             const response = await fetch(`${BASE_URL}/user/login`, {
                 method: "POST",
                 headers: {
@@ -51,6 +53,7 @@ export const Login = (props) => {
                 localStorage.setItem("token", json.authtoken);
                 navigate("/");
             } else {
+                setClick(0)
                 setBackendmessage(json.message);
             }
         }
@@ -61,13 +64,6 @@ export const Login = (props) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
-    const func = (e) => {
-        (show) ? setShow(0) : setShow(1)
-    }
-    /*const samp = (e) => {
-        e.preventDefault()
-        window.open('https://www.facebook.com', '_blank');
-    }*/
 
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -92,12 +88,12 @@ export const Login = (props) => {
                             </div>
                             <div className='input-group container mb-4 mx-5'>
                                 <input type={`${(show) ? "text" : "password"}`} className="w-75 fs-5 form-control" value={credentials.password} onChange={onChange} id="password" name="password" placeholder="Password" />
-                                <span type='submit' className="input-group-text" onClick={func}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
+                                <span type='submit' className="input-group-text" onClick={() => setShow(!show)}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
                                 {crederrors.password && <p style={{ color: 'red' }}>{crederrors.password}</p>}
                                 {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
                             </div>
                             <div className='container mb-4 mx-5'>
-                                <button type="submit" className="btn fs-5 w-100 btn-primary">Login</button>
+                                <button type="submit" className={`btn fs-5 w-100 ${click ? "btn-success" : "btn-primary"}`} disabled={click === 1}>{click ? "Logging in..." : "Login"}</button>
                             </div>
                         </form>
                         <p className="fw-normal mb-5" style={{ marginLeft: "60px" }}><a className="link-primary" href="/forgotpassword">Forgot password?</a></p>
