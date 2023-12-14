@@ -56,9 +56,6 @@ export const Resetpassword = (props) => {
             }
         }
     };
-    const func = (e) => {
-        (show) ? setShow(0) : setShow(1)
-    }
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
@@ -79,12 +76,12 @@ export const Resetpassword = (props) => {
                             <form onSubmit={handleSubmit}>
                                 <div className='input-group container mb-4 mx-5'>
                                     <input type={`${(show) ? "text" : "password"}`} className="w-75 fs-5 form-control" value={credentials.password} onChange={onChange} id="password" name="password" placeholder="Password" />
-                                    <span type='submit' className="input-group-text" onClick={func}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
+                                    <span type='submit' className="input-group-text" onClick={() => setShow(!show)}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
                                     {crederrors.password && <p style={{ color: 'red' }}>{crederrors.password}</p>}
                                 </div>
                                 <div className='input-group container mb-4 mx-5'>
                                     <input type={`${(show) ? "text" : "password"}`} className="w-75 fs-5 form-control" value={credentials.cpassword} onChange={onChange} id="cpassword" name="cpassword" placeholder="Confirm Password" />
-                                    <span type='submit' className="input-group-text" onClick={func}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
+                                    <span type='submit' className="input-group-text" onClick={() => setShow(!show)}><i className={`bi bi-eye${(show) ? "" : "-slash"}`}></i></span>
                                     {crederrors.cpassword && <p style={{ color: 'red' }}>{crederrors.cpassword}</p>}
                                     {backendmessage && <p style={{ color: 'red' }}>{backendmessage}</p>}
                                 </div>
